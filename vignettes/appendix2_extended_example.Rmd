@@ -36,7 +36,7 @@ faux_options(verbose = FALSE)
 
 ## 2ww2wb Design
 
-This section will simulate data and run a power analysis for a 2x2 design where the first factor is within subjects and within items and the second factor is with subjects and between items.
+This section will simulate data and run a power analysis for a 2x2 design where the first factor is within subjects and within items and the second factor is within subjects and between items.
 
 ### Set Study Parameters
 
@@ -46,9 +46,10 @@ We will set our grand intercept and the fixed effect of category the same as bef
 
 Therefore, you will need to set up more complicated random effect parameters. Items and subjects will need standard deviations assigned for their random intercepts and the random slopes for any within factors (and their interactions), plus the correlations among all these SDs.
 
-Since all subjects respond to all items, we can set up a table of trials by crossing the subject IDs with the item IDs and also any factors that are both within-subject *and* within-item (i., `expression = c("happy", "angry")`). This is set up as a factor with the levels specified so they are displayed in the right order in plots.
+Since all subjects respond to all items, we can set up a table of trials by crossing the subject IDs with the item IDs and also any factors that are both within-subject *and* within-item (i.e., `expression = c("happy", "angry")`). This is set up as a factor with the levels specified so they are displayed in the right order in plots.
 
 We use the following prefixes to designate model parameters and sampled values: 
+
 * `beta_*`: fixed effect parameters
 * `subj_*`: random effect parameters associated with subjects
 * `item_*`: random effect parameters associated with items
@@ -79,8 +80,8 @@ sim_data_2ww2wb <- function(
   n_ingroup  =  25, # number of items in ingroup
   n_outgroup =  25, # number of items in outgroup
   beta_0     = 800, # intercept (grand mean)
-  beta_e     =  50, # main effect of category
-  beta_c     =   0, # main effect of expression
+  beta_c     =  50, # main effect of category
+  beta_e     =   0, # main effect of expression
   beta_ec    =  70, # interaction between category and expression
   subj_0     = 100, # by-subject random intercept sd
   subj_e     =  40, # by-subject random slope sd for exp
@@ -128,8 +129,8 @@ sim_data_2ww2wb <- function(
       X_c = recode(category, "ingroup" = -0.5, "outgroup" = +0.5),
       # add together fixed and random effects for each effect
       B_0  = beta_0  + S_0 + I_0,
-      B_e  = beta_c  + S_e + I_e,
-      B_c  = beta_e  + S_c,
+      B_e  = beta_e  + S_e + I_e,
+      B_c  = beta_c  + S_c,
       B_ec = beta_ec + S_ec,
       # generate the error term
       e_si = rnorm(nrow(.), mean = 0, sd = sigma),
@@ -281,8 +282,8 @@ sim_data_2ww2ww <- function(
   n_subj     =  50, # number of subjects in each counterbalance group
   n_item     =  25, # number of items in each counterbalance group
   beta_0     = 800, # intercept (grand mean)
-  beta_e     =  50, # main effect of category
-  beta_c     =   0, # main effect of expression
+  beta_c     =  50, # main effect of category
+  beta_e     =   0, # main effect of expression
   beta_ec    =  70, # interaction between category and expression
   subj_0     = 100, # by-subject random intercept sd
   subj_e     =  40, # by-subject random slope sd for exp
@@ -364,8 +365,8 @@ sim_data_2ww2ww <- function(
       X_c = recode(category, "ingroup" = -0.5, "outgroup" = +0.5),
       # add together fixed and random effects for each effect
       B_0  = beta_0  + S_0  + I_0,
-      B_e  = beta_c  + S_e  + I_e,
-      B_c  = beta_e  + S_c  + I_c,
+      B_e  = beta_e  + S_e  + I_e,
+      B_c  = beta_c  + S_c  + I_c,
       B_ec = beta_ec + S_ec + I_ec,
       # generate the error term
       e_si = rnorm(nrow(.), mean = 0, sd = sigma),
